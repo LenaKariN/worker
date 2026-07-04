@@ -1,0 +1,40 @@
+@startuml
+hide circle
+hide empty fields
+hide empty methods
+skinparam classBackgroundColor<<entity>> #LightYellow
+skinparam classBackgroundColor<<abstract>> #White
+skinparam classBackgroundColor<<reference>> #LightCyan
+skinparam classBackgroundColor<<value-object>> #F0E0E0
+
+'' Основные сущности
+class Accountability<<entity>>
+class Party<<entity>>
+class OrganizationalUnit<<entity>> extends Party
+class Employee<<entity>> extends Party
+class AccountabilityType<<reference>>
+class UnitType<<reference>>
+class PositionType<<reference>>
+class Effectivity<<value-object>>
+class Contact<<abstract>>
+class Phone<<value-object>> extends Contact
+class PersonName<<value-object>> extends Contact
+class OrgName<<value-object>> extends Contact
+class Money<<value-object>>
+
+
+'' Отношения
+Accountability -d-> "1" Party : accountable
+Accountability -d-> "1" Party : responsible
+Accountability -r-> "1" AccountabilityType : type
+Accountability -l-> "1" Effectivity : effectivity
+
+Party -r-> "1..*" Contact : contacts
+
+Employee --> "0..1" PositionType : position
+Employee --> "0..1" Money : salary
+
+OrganizationalUnit --> "0..1" UnitType : kind
+OrganizationalUnit --> "0..1" Money : budget
+
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+!include <C4/C4_Deployment>
+
+Deployment_Node(workstation, "Рабочая станция пользователя", "Windows / Linux / macOS") {
+    Deployment_Node(python, "Python Runtime", "CPython 3.13+") {
+        Container(cli, "Employees CLI", "Python, Typer, Rich", "Система управления оргструктурой")
+    }
+}
+@enduml
